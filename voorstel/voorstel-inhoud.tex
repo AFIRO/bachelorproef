@@ -1,84 +1,86 @@
 %---------- Inleiding ---------------------------------------------------------
 
-% TODO: Is dit voorstel gebaseerd op een paper van Research Methods die je
-% vorig jaar hebt ingediend? Heb je daarbij eventueel samengewerkt met een
-% andere student?
-% Zo ja, haal dan de tekst hieronder uit commentaar en pas aan.
-
-%\paragraph{Opmerking}
-
-% Dit voorstel is gebaseerd op het onderzoeksvoorstel dat werd geschreven in het
-% kader van het vak Research Methods dat ik (vorig/dit) academiejaar heb
-% uitgewerkt (met medesturent VOORNAAM NAAM als mede-auteur).
-% 
-
 \section{Inleiding}%
 \label{sec:inleiding}
 
-Waarover zal je bachelorproef gaan? Introduceer het thema en zorg dat volgende zaken zeker duidelijk aanwezig zijn:
+Deze bachelorproef richt zich op het verbeteren van process governance door middel van process monitoring en orchestration, specifiek binnen het bedrijf Liantis, een grote Belgische onderneming actief in de HR sector. Liantis biedt oplossingen in kader van payroll, preventie/welzijn op het werk en ondersteuning aan zelfstandigen. Omdat het bedrijf een wildgroei aan processen heeft die steeds complexer en dynamischer worden, heeft het Liantis moeite om een consistent en betrouwbaar beheer van zijn processen te waarborgen. Vooral door beperkte mogelijkheden om real-time inzicht te krijgen in de prestaties van hun medewerkers, ontstaan er regelmatig inefficiënties en compliance-uitdagingen. Voor business-managers en -analisten binnen dit bedrijf vormt dit een knelpunt bij het waarborgen van de procesbetrouwbaarheid en het naleven van interne en externe regelgeving. De centrale onderzoeksvraag luidt dan ook "Hoe kan process monitoring en orchestration bijdragen aan een effectieve ondersteuning van process governance?" en dit praktisch toegepast binnen het specifieke geval van Liantis. Een bijkomende vraag is "Wat zijn de technische uitdagingen bij de implementatie van process monitoring en orchestration systemen bij Belgische bedrijf met zowel inhouse als externe software?" omdat deze natuurlijk zal voortvloeien vanuit de casus Liantis.
 
-\begin{itemize}
-  \item kaderen thema
-  \item de doelgroep
-  \item de probleemstelling en (centrale) onderzoeksvraag
-  \item de onderzoeksdoelstelling
-\end{itemize}
-
-Denk er aan: een typische bachelorproef is \textit{toegepast onderzoek}, wat betekent dat je start vanuit een concrete probleemsituatie in bedrijfscontext, een \textbf{casus}. Het is belangrijk om je onderwerp goed af te bakenen: je gaat voor die \textit{ene specifieke probleemsituatie} op zoek naar een goede oplossing, op basis van de huidige kennis in het vakgebied.
-
-De doelgroep moet ook concreet en duidelijk zijn, dus geen algemene of vaag gedefinieerde groepen zoals \emph{bedrijven}, \emph{developers}, \emph{Vlamingen}, enz. Je richt je in elk geval op it-professionals, een bachelorproef is geen populariserende tekst. Eén specifiek bedrijf (die te maken hebben met een concrete probleemsituatie) is dus beter dan \emph{bedrijven} in het algemeen.
-
-Formuleer duidelijk de onderzoeksvraag! De begeleiders lezen nog steeds te veel voorstellen waarin we geen onderzoeksvraag terugvinden.
-
-Schrijf ook iets over de doelstelling. Wat zie je als het concrete eindresultaat van je onderzoek, naast de uitgeschreven scriptie? Is het een proof-of-concept, een rapport met aanbevelingen, \ldots Met welk eindresultaat kan je je bachelorproef als een succes beschouwen?
+Het doel van deze bachelorproef is om een concreet raamwerk en aanbevelingen te ontwikkelen voor het implementeren van process monitoring en orchestration om zo de process governance binnen Liantis te optimaliseren. Verder zal het een proof-of-concept realizeren waarbij we dit toepassen op een specifiek gekozen process. Dit zal dan gebruikt worden om de relevante stakeholders te overtuigen om dit verder uit te rollen naar andere processen.  Hiervoor zal eerst een uitgebreide literatuurstudie worden uitgevoerd om inzicht te krijgen in bestaande methoden en tools op het gebied van process monitoring en orchestration. Vervolgens wordt er een casestudie uitgevoerd binnen het bedrijf om de huidige knelpunten in kaart te brengen en de impact van mogelijke oplossingen te evalueren. Op basis hiervan zal een proof-of-concept ontwikkeld worden waarbij we aantonen hoe dit praktisch een specifiek gekozen complex bedrijfsprocess zal ondersteunen. Het beoogde eindresultaat voor een succesvolle bachelorproef bestaat uit een gedetailleerd implementatieplan dat de IT-afdeling van Liantis helpt om monitoring en orchestration op een effectieve manier in de governance-structuur te integreren met een proof-of-concept die kan dienen als sjabloon voor verdere implementatie. 
 
 %---------- Stand van zaken ---------------------------------------------------
 
-\section{Literatuurstudie}%
-\label{sec:literatuurstudie}
+\section{Stand Van Zaken}%
+\label{sec:stand_van_zaken}
+\subsection{Business Process Management en Governance}
 
-Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein, d.w.z.\ een inleidende, doorlopende tekst over het onderzoeksdomein van je bachelorproef. Je steunt daarbij heel sterk op de professionele \emph{vakliteratuur}, en niet zozeer op populariserende teksten voor een breed publiek. Wat is de huidige stand van zaken in dit domein, en wat zijn nog eventuele open vragen (die misschien de aanleiding waren tot je onderzoeksvraag!)?
+Het domein van business process management (BPM) en governance richt zich op het verbeteren van bedrijfsprocessen door middel van monitoring, analyse, en optimalisatie. BPM biedt organisaties de mogelijkheid om processen te stroomlijnen en deze af te stemmen op de strategische doelen van de organisatie \autocite{Dumas2018}. Binnen deze context spelen process monitoring en orchestration een cruciale rol. Deze technologieën maken het mogelijk om bedrijfsprocessen op een efficiënte en geautomatiseerde manier te beheren en aan te passen \autocite{Weske2019}.
 
-Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek?
+\subsection{Monitoring, Mining en Orchestration}
 
-Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Hykes2013}! Denk zeker goed na welke werken je refereert en waarom.
+Process monitoring is essentieel binnen BPM omdat het organisaties near-realtime inzicht geeft in de prestaties van hun bedrijfsprocessen, waardoor afwijkingen of inefficiënties snel kunnen worden geïdentificeerd \autocite{Janiesch2012}. Dit is dan voedingsbodem voor process mining, waarbij we de logs uit de monitoring gebruiken om tot analytische inzichten te komen. Process mining biedt niet alleen inzicht in het huidige verloop van processen maar maakt ook een data-gedreven optimalisatie mogelijk door onregelmatigheden bloot te leggen die vaak onzichtbaar blijven bij traditionele monitoring \autocite{Aalst2016}. Daarnaast kan Business Activity Monitoring (BAM) organisaties helpen om niet alleen retrospectief maar ook proactief op afwijkingen te reageren, wat waardevol is voor processen met hoge compliance-eisen \autocite{Janiesch2012}. Process orchestration gaat een stap verder dan monitoring door bedrijfsprocessen te automatiseren en te coördineren op basis van vastgelegde beleidslijnen en workflows. Dit is vooral nuttig voor organisaties die streven naar consistentie en compliance in hun bedrijfsvoering \autocite{Weske2019}. 
 
-Draag zorg voor correcte literatuurverwijzingen! Een bronvermelding hoort thuis \emph{binnen} de zin waar je je op die bron baseert, dus niet er buiten! Maak meteen een verwijzing als je gebruik maakt van een bron. Doe dit dus \emph{niet} aan het einde van een lange paragraaf. Baseer nooit teveel aansluitende tekst op eenzelfde bron.
+\subsection{Open Vragen}
 
-Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle nodige info aanwezig is om de bron terug te vinden (zoals uitvoerig besproken in de lessen Research Methods).
+De grote open vraag die heeft geleid tot dit onderzoek is de technische uitdaging van het implementeren van deze systemen binnen een groot bedrijf zoals Liantis. Net zoals veel bedrijven is Liantis immers organisch gegroeid en bevat het niet enkel veel inhouse legacy systemen, maar ook aangekochte systemen. Dergelijke monitoring en orchestratie systemen moeten op een agnostische manier kunnen omgaan met de output van allerhande processen en systemen. De implementatie van deze systemen in een bedrijfscontext brengt dus verschillende technische uitdagingen met zich mee die vaak custom oplossingen vereisen. Vakliteratuur geeft een aantal interessante opties zoals het gebruik van middleware \autocite{Weber2018}, maar er is een zeer duidelijke lacune te zien binnen het domein om te onderzoeken. 
 
-% Voor literatuurverwijzingen zijn er twee belangrijke commando's:
-% \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
-%   geen onderdeel is van de zin.
-% \textcite{KEY} => Auteur (jaartal)  Gebruik dit als de auteursnaam wel een
-%   functie heeft in de zin (bv. ``Uit onderzoek door Doll & Hill (1954) bleek
-%   ...'')
+\subsection{Vergelijkbare Studies en Unieke Waarde}
 
-Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur van de tekst kan verduidelijken.
+De waarde van dit domein is al zeker en vast bewezen door Vergelijkbare studies binnen grote organisaties \autocite{Harmon2014} die benadrukken dat de implementatie van geavanceerde monitoring- en orchestrationtechnieken helpen om consistent aan governance- en compliance-vereisten te voldoen. Dit onderzoek biedt echter een unieke bijdrage door zich te richten op de praktische toepasbaarheid van deze technieken bij een groot Belgische bedrijf wiens IT-context breed toepasbaar is. Door dit uit te werken zal er een praktisch raamwerk bestaan voor de implementatie van dergelijke systemen binnen een bedrijf met dergelijk profiel met proof-of-concept dat kan dienen als bluedruk voor veel Belgische bedrijven. 
 
 %---------- Methodologie ------------------------------------------------------
 \section{Methodologie}%
 \label{sec:methodologie}
 
-Hier beschrijf je hoe je van plan bent het onderzoek te voeren. Welke onderzoekstechniek ga je toepassen om elk van je onderzoeksvragen te beantwoorden? Gebruik je hiervoor literatuurstudie, interviews met belanghebbenden (bv.~voor requirements-analyse), experimenten, simulaties, vergelijkende studie, risico-analyse, PoC, \ldots?
+Om de onderzoeksvraag te beantwoorden en een effectieve aanpak te ontwikkelen voor de implementatie van process monitoring en orchestration binnen Liantis, wordt gebruikgemaakt van een gefaseerde onderzoeksmethodologie die literatuurstudie, case study-analyse, requirements-analyse en een proof-of-concept ontwikkeling omvat. Deze combinatie van technieken waarborgt zowel theoretische onderbouwing als technische diepgang, wat essentieel is voor het creëren van een valide en werkbaar implementatiemodel.
 
-Valt je onderwerp onder één van de typische soorten bachelorproeven die besproken zijn in de lessen Research Methods (bv.\ vergelijkende studie of risico-analyse)? Zorg er dan ook voor dat we duidelijk de verschillende stappen terug vinden die we verwachten in dit soort onderzoek!
+\subsection{Fase 1: Literatuurstudie (2 weken)}
 
-Vermijd onderzoekstechnieken die geen objectieve, meetbare resultaten kunnen opleveren. Enquêtes, bijvoorbeeld, zijn voor een bachelorproef informatica meestal \textbf{niet geschikt}. De antwoorden zijn eerder meningen dan feiten en in de praktijk blijkt het ook bijzonder moeilijk om voldoende respondenten te vinden. Studenten die een enquête willen voeren, hebben meestal ook geen goede definitie van de populatie, waardoor ook niet kan aangetoond worden dat eventuele resultaten representatief zijn.
+De eerste fase bestaat uit een gedetailleerde literatuurstudie. Hierbij worden academische artikelen en technische bronnen over business process management, monitoring, orchestration, en implementatie-uitdagingen grondig geanalyseerd. Deze studie heeft als doel om een diepgaand inzicht te verkrijgen in de huidige stand van zaken en de typische uitdagingen en succesfactoren binnen BPM-implementaties voor process governance. De bevindingen uit de literatuurstudie vormen de theoretische basis van het onderzoek en dienen als referentiekader voor de verdere fasen. \\
 
-Uit dit onderdeel moet duidelijk naar voor komen dat je bachelorproef ook technisch voldoen\-de diepgang zal bevatten. Het zou niet kloppen als een bachelorproef informatica ook door bv.\ een student marketing zou kunnen uitgevoerd worden.
+\textbf{Deliverable:} een theoretisch component met gedocumenteerde inzichten over BPM-standaarden, technische obstakels, en oplossingen voor de organisatie.
 
-Je beschrijft ook al welke tools (hardware, software, diensten, \ldots) je denkt hiervoor te gebruiken of te ontwikkelen.
+\subsection{Fase 2: Requirements-analyse binnen Liantis (2 weken)}
 
-Probeer ook een tijdschatting te maken. Hoe lang zal je met elke fase van je onderzoek bezig zijn en wat zijn de concrete \emph{deliverables} in elke fase?
+Om de specifieke behoeften en uitdagingen van de casusorganisatie vast te stellen, wordt een requirements-analyse uitgevoerd door middel van gestructureerde workshops met stakeholders binnen de organisatie, zoals IT-managers, procesanalisten, en compliance-officers. Verder wordt de bestaande IT-infrastructuur bekeken om te kijken hoe we dit het beste inpassen om de impact minimaal te houden. We bepalen hier ook het complexe process dat in scope zal zijn voor onze proof-of-concept. \\
+
+\textbf{Deliverable:} een requirementsrapport met gedetailleerde, gevalideerde vereisten voor de implementatie.
+
+\subsection{Fase 3: Technische en Functionele Analyse (2 weken)}
+
+Na de requirements-analyse wordt een technische analyse uitgevoerd om geschikte tools en technologieën te selecteren. Hierbij zoeken we naar een process documentatie tool waarmee we kunnen integreren als bron van waarheid, modeleren we een architectuur voor deze systemen, schrijven we een contract uit dat alle systemen gaan gebruiken voor de monitoring en orchestratie en voeren we de analyse uit voor de proof-of-concept.  \\
+
+\textbf{Deliverable:} design documenten voor de process monitoring en orchestration tools met implementatieplan.
+
+\subsection{Fase 4: Proof-of-Concept Ontwikkeling en Validatie (1 maand)}
+
+In deze fase wordt een proof-of-concept ontwikkeld om de haalbaarheid van het voorgestelde implementatiemodel te testen. De PoC omvat de integratie van de monitoring- en orchestration systeem met een voorbeeldproces van de Liantis. Dit proces wordt gesimuleerd met representatieve data om de configuratie van monitoring en event-triggered orchestration te testen. Deze proof-of-concept zal dan gebruikt worden stakeholders te overtuigen en als blauwdruk voor verdere processen. \\
+
+\textbf{Deliverable:} een gedetailleerd PoC-rapport en werkend prototype dat het systeem demonstreert.
+
+\subsection{Tijdschema}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|p{6cm}|p{2.5cm}|p{5cm}|}
+\hline
+\textbf{Fase} & \textbf{Duur} & \textbf{Deliverables} \\
+\hline
+Literatuurstudie & 2 weken & Theoretisch component \\
+\hline
+Requirements-analyse & 2 weken & Requirementsrapport \\
+\hline
+Technische en Functionele Analyse & 2 weken & Design documenten en implementatieplan. \\
+\hline
+Proof-of-Concept Ontwikkeling en Validatie & 1 maand & PoC-rapport en werkend prototype \\
+\hline
+\end{tabular}
+\caption{Tijdschema van de verschillende onderzoeksfasen en deliverables.}
+\end{table}
 
 %---------- Verwachte resultaten ----------------------------------------------
 \section{Verwacht resultaat, conclusie}%
 \label{sec:verwachte_resultaten}
+De verwachting binnen dit onderzoek is dat er een implementatieplan zal ontstaan die toelaat om process governance te waarborgen binnen Liantis door te steunen op een sterk framework van monitoring en orchestration met een proof-of-concept om stakeholders te overtuigen. Dit zal dan fungeren als verdere impetus voor het uitwerken van dit systeem binnen de organisatie met als gevolg consistentere processen die makkelijker geoptimaliseerd kunnen worden.
 
-Hier beschrijf je welke resultaten je verwacht. Als je metingen en simulaties uitvoert, kan je hier al mock-ups maken van de grafieken samen met de verwachte conclusies. Benoem zeker al je assen en de onderdelen van de grafiek die je gaat gebruiken. Dit zorgt ervoor dat je concreet weet welk soort data je moet verzamelen en hoe je die moet meten.
-
-Wat heeft de doelgroep van je onderzoek aan het resultaat? Op welke manier zorgt jouw bachelorproef voor een meerwaarde?
-
-Hier beschrijf je wat je verwacht uit je onderzoek, met de motivatie waarom. Het is \textbf{niet} erg indien uit je onderzoek andere resultaten en conclusies vloeien dan dat je hier beschrijft: het is dan juist interessant om te onderzoeken waarom jouw hypothesen niet overeenkomen met de resultaten.
+Verder is het mijn verwachting dat de resultaten uit dit onderzoek toepasbaar zullen zijn op bedrijven die een gelijkaardig profiel hebben als Liantis. Liantis is binnen zijn IT-context zeker geen uitzondering en het is mijn doel om binnen dit onderzoek Liantis als case study te gebruiken om zo een framework te ontwikkelen waarmee veel meer bedrijven gediend zijn.
 
