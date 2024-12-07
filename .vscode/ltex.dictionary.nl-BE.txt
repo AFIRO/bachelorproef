@@ -21,3 +21,5 @@ Proof-of-Concept
 PoC
 event-triggered
 PoC-rapport
+solutions
+high-level
