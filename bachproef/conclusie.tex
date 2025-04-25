@@ -13,6 +13,49 @@
 % niet duidelijk zijn?
 % Heeft het onderzoek geleid tot nieuwe vragen die uitnodigen tot verder 
 %onderzoek?
+\section{\IfLanguageName{dutch}{Resultaten}{Resultaten}}%
+\label{sec:resultaten}
+\subsection{\IfLanguageName{dutch}{Functionele vereisten}{Functionele vereisten}}%
+\label{subsec:functionele vereisten}
+\subsubsection{\IfLanguageName{dutch}{Monitoring}{Monitoring}}%
+\label{subsubsec:monitoring}
+De grootste use-cases van business zijn zeker behaald. Per lopende instantie van het simulatieproces is er een timeline met de huidige uitvoerder, de stappen en bereikte mijlpalen beschikbaar in sequentiële volgorde. Door deze informatie correct op te halen is het mogelijk om de klant in real-time te informeren van de status van zijn lopend proces in MyLiantis. Er zijn ook stappen gemaakt naar betere rapportage door de uitvoeringstijd per stap en eventuele afwijkingen in het normaal verloop zichtbaar te maken. Door dit af te nemen kan business intelligence opgezet worden om zo bottlenecks en anomalieën te detecteren op basis van servicelevel overeenkomsten. Het systeem weet ook hoeveel taken elke medewerker momenteel uitvoert en nog kan uitvoeren voor forecasting en balanceren van werklast. Dit is uiteraard relatief rudimentair, maar de technische haalbaarheid van het concept is zeker bewezen.
+\subsubsection{\IfLanguageName{dutch}{Orkestratie}{Orkestratie}}%
+\label{subsubsec:orkestratie}
+In kader van orkestratie voldoet het systeem eveneens. Het genereert passende taken en zoekt de medewerker met het minst aantal actieve taken om deze uit te voeren tenzij expliciet aangewezen door de monitoring om dit niet te doen. In een latere iteratie kan dit verfijnd worden door bijvoorbeeld elke taak een granulair gewicht toe te kennen voor een betere balans. De API laat toe om alle huidige ingeplande taken voor een medewerker op te halen. Het is hierdoor mogelijk om een organische takenlijst voor te stellen in bijvoorbeeld de Digitale Cockpit. Verder kan het verloop van elke taak via de API doorgegeven worden opdat de data de werkelijkheid blijft volgen. Op de taak data kan eveneens rapportage gebouwd worden zodat bijvoorbeeld de doorlooptijd per type taak bepaald kan worden op data-gestuurde wijze.\newline
+\subsection{\IfLanguageName{dutch}{Niet-functionele vereisten}{Niet-functionele vereisten}}%
+\label{subsec:niet-functionele vereisten}
+De proof-of-concept kan door zijn aard niet voldoen aan alle opgelegde functionele vereisten van het casusbedrijf gelet op het feit dat het geen toegang heeft tot de interne systemen. Het behalen van deze vereisten is een proof-of-concept dan ook geen must-have. De proof-of-concept voldoet echter wel aan volgende vereisten:
+\begin{itemize}
+  \item Het systeem is foutbestendig en gebouwd om zichzelf te remediëren na fouten.
+  \item Het systeem voert alle synchrone bewerkingen uit aan 12 milliseconden of lager.
+  \item Het kan een externe configuratie aanvaarden voor de mapping van de executie engine.
+  \item De data is volledig generisch en bestaat louter uit referenties.
+  \item Het systeem kan beveiligd worden via Spring Security.
+  \item Het systeem genereert duidelijke logging bij elke handeling die aggregeerbaar is.
+  \item Het systeem is volledig compliant met de interne technologie stack.
+\end{itemize}
 
-\lipsum[76-80]
+\subsection{\IfLanguageName{dutch}{Mogelijke verbeteringen}{Mogelijke verbeteringen}}%
+\label{subsec:mogelijke verbeteringen}
+Het project voldoet aan de vooropgestelde verwachtingen, maar elke systeem kan uiteraard iteratief verbeterd worden. Een eerste verbetering zou zijn om integraties bouwen met de masters rond processen en human resources. In de huidige opstelling is een singulier proces binnen scope, maar het zou elk proces moeten kunnen ondersteunen. Een integratie met een proces documentatietool zoals ARIS bij het casusbedrijf zou toelaten dat het systeem zijn executie engine dagelijks kan syncen.  Verder is de data van medewerkers en hun teams cruciaal om de juiste taken aan de juiste persoon te kunnen koppelen. \newline
+
+Een tweede groot verbeterpunt is de inkomende monitoringdata uitbreiden en toegankelijker maken. Op basis van grondige analyse moet gekeken worden welke data het systeem zelf kan opvragen binnen de organisatie om de logs te verrijken en welke enkel het externe systeem kan leveren. Zodoende vergemakkelijkt de implementatie voor providers en verlaagt de load op hun systemen. Het beste scenario zou een plug-and-play library zijn die de providers implementeren en aanroepen om zo automatische de juiste data te formateren en door te sturen. \newline
+
+Een derde groot verbeterpunt is het uitwerken van een extractie, transformatie en laadproces richting een datawarehouse. Het systeem zal naarmate meer processen toegevoegd worden aan de monitoring exponentieel meer data beginnen produceren die na ontsluiting van grote waarde is voor het bedrijf. Hoe sneller deze data kan landen bij de business intelligence experten, hoe hoger de business waarde van dit systeem zal zijn.
+
+\section{\IfLanguageName{dutch}{Inhoudelijke Conclusie}{Inhoudelijke Conclusie}}%
+\label{sec:inhoudelijke conclusie}
+In dit werk werd onderzocht welk de vereisten zijn waaraan een systeem moet voldoen en welke software architectuur gepast is om custom proces monitoring en orkestratie te implementeren binnen een bedrijf met veel custom development applicaties. \newline
+
+Allereerst werd een literatuurstudie gedaan om te begrijpen hoe hedendaagse systemen binnen het werkveld werken, wat hun mogelijkheden zijn en wat de best practices zijn bij het ontwerpen van dergelijk systeem. Op basis van een analyse binnen casusbedrijf Liantis die voldoet aan bovenstaande criteria werden hun vereisten omgezet in een lijst van functionele en niet-functionele vereisten die representatief zijn voor het bedrijf zelf als andere bedrijven van een gelijkaardig profiel.\newline
+
+Verder werd een design gemaakt die architecturaal en functioneel voldoet aan de eisen van het casusbedrijf waarbij zowel proces- als systeem-agnostisch werd gewerkt om zo tegemoet te komen aan de technische en architecturale uitdagingen waar het bedrijf mee kampt door zijn veelvoud aan custom development.\newline
+
+Dit design werd dan omgezet in een werkende proof-of-concept die gesimuleerde data van een proces kon verwerken in geconsolideerde executie logs die afnemers via een duidelijke API kunnen gebruiken om vereiste use-cases gevonden tijdens de analyse op te leveren.  Op basis van de data kon dit systeem ook taken aanmaken en toekennen aan medewerkers binnen het bedrijf. Op basis van een duidelijke API konden afnemers hiermee een taakoverzicht bouwen voor de betrokkenen medewerkers en die status van deze taken correct aanpassen op basis van hun verloop. Een rudimentaire versie van de realisaties die het casusbedrijf wil bouwen werd ook opgeleverd.\newline
+
+Het resultaat toont daarmee hoe dergelijk systeem succesvol geïmplementeerd kan worden in een bedrijfsomgeving met veel custom development en vormt zo een blauwdruk waarmee een succesvolle proces monitoring en orkestratie bereikt kan worden dat reproduceerbaar is binnen soortgelijke bedrijven in het werkveld.\newline
+
+Het doel van dit onderzoekswerk is daarmee bereikt waardoor de weg nu vrij is om dit systeem te implementeren bij het casusbedrijf. Hiervoor zijn er al reeds concrete stappen uitgevoerd dit kwartaal met uitzicht op verdere iteratieve uitbreiding in volgende kwartalen op basis van de reeks bereikte resultaten. Hiermee is het bijkomend doel van dit werk succesvol behaald en zal het werk uitgevoerd in kader van deze bachelor proef nog verder vervolgd worden in professionele setting.
+
 
