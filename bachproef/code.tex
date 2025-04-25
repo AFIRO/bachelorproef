@@ -1,7 +1,120 @@
 %%=============================================================================
-%% Cpde
+%% Code
 %%=============================================================================
 
 \chapter{\IfLanguageName{dutch}{Code}{Code}}%
 \label{ch:code}
-De code van de proof-of-concept monitoring en orkestratie software is hier ingediend als bijlage.
+Het proof-of-concept systeem werd geschreven met behulp van Java Spring Boot gebruikmakend van allerhande frameworks zoals Lombok en Java Persistance API. Hierdoor is merendeel van de code weinig interessant om te tonen daar dit vooral de configuratie van de controllers, entiteiten, DTO's en repositories betreft. Ook de visualisaties van de API die getoond worden zijn weinig interessant gezien deze louter de API bevragen en over de data itereren om deze te visualiseren in simpele kaarten. \newline
+
+Deze bijlage bevat daarom de code voor de business logica die de ruwe monitoring data verwerkt naar bruikbare executie logs en de executie engine die vanuit de monitoring data taken genereert. De volledige code kan gevonden worden op volgende Github: \url{https://github.com/AFIRO/bap-poc}. \newline
+
+De log service verwerkt de binnenkomende data, garandeert consistentie door foutieve data proactief te weigeren en stuurt de verwerkte data door naar de executie engine voor taak generatie.\newline
+
+De executie engine vereist in de proof-of-concept een configuratie bestand ActivityToTaskMapping met daarin de logische link tussen monitoring data en taken. In het theoretisch systeem wordt dit bestand continu gevoed door proces documentatie tool zoals ARIS. \newline
+
+\begin{listing}
+  \begin{minted}[breaklines, fontsize=\scriptsize]{java}
+public class LogService {
+    private ProcessInstanceOutputDto createNewProcessExecutionLog(ProcessInstanceInputDto data) {
+        log.info("Creating new Execution Log.");
+        if (data.getActivities().size() != 1) {
+            throw new IllegalArgumentException("A new process may not have more than one initial activity.");}
+        ProcessInstanceExecutionLog toPersist = logMapper.toEntity(data);
+        log.info("Persisting Execution Log for Process Instance {}",toPersist.getProcessInstanceReference());
+        repository.save(toPersist);
+        generateTaskBasedOnActivity(toPersist,toPersist.getActivities().get(0));
+        return logMapper.toOutputDto(toPersist);
+    }
+    private ProcessInstanceOutputDto updateProcessExecutionLog(ProcessInstanceInputDto data) {
+        log.info("Updating Execution Log with Process Instance Reference {}.", data.getProcessInstanceReference());
+
+        if (data.getActivityStatus() == ActivityStatus.START && data.getActivities().size() != 1) {
+            throw new IllegalArgumentException("A process may not be updated with more than one activity at a time.");
+        }
+
+        if (!repository.existsByProcessInstanceReference(data.getProcessInstanceReference())) {
+            throw new IllegalArgumentException("Process to update does not exist.");
+        }
+
+        ProcessInstanceExecutionLog logToUpdate = repository.findByProcessInstanceReference(data.getProcessInstanceReference()).orElseThrow();
+        if (logToUpdate.getActivityStatus() != ActivityStatus.START) {
+            throw new IllegalArgumentException("A process may not be updated if it has already concluded.");
+        }
+
+        if (data.getActivityStatus().equals(ActivityStatus.START)){
+
+        Activity activityToAdd = activityMapper.toEntity(data.getActivities().get(0));
+
+        if (activityToAdd.getActivityStatus() != ActivityStatus.START){
+            logToUpdate.getActivities()
+                    .stream()
+                    .filter(activity -> activity.getActivityReference().equals(data.getActivities().get(0).getActivityReference()))
+                    .findFirst()
+                    .ifPresent(potentialPrecedingActivity -> activityToAdd.setActivityInstanceReference(potentialPrecedingActivity.getActivityInstanceReference()));
+        }
+
+        logToUpdate.getActivities().add(activityToAdd);
+        generateTaskBasedOnActivity(logToUpdate, activityToAdd);
+        } else {
+            logToUpdate.setActivityStatus(data.getActivityStatus());
+            logToUpdate.setProcessTimeStamp(data.getProcessTimeStamp());
+        }
+        repository.save(logToUpdate);
+        return logMapper.toOutputDto(logToUpdate);
+    }
+    private void generateTaskBasedOnActivity(ProcessInstanceExecutionLog executionLog, Activity newActivity) {
+        engine.generateTaskBasedOnActivity(executionLog,newActivity);
+    }
+}
+  \end{minted}
+  \caption[Process Executie Logging Service]{Process Executie Logging Service.}
+\end{listing}
+
+\begin{listing}
+  \begin{minted}[breaklines, fontsize=\scriptsize]{java}
+public class ExecutionEngine {
+    public void generateTaskBasedOnActivity(ProcessInstanceExecutionLog executionLog, Activity activity) {
+        if (activity.getActivityStatus().equals(ActivityStatus.START) &&
+                ActivityToTaskMapping.containsActivityReference(activity.getActivityReference())) {
+            log.info("Generating task {} based on activity {} provided.", ActivityToTaskMapping.getTaskReference(activity.getActivityReference()), activity.getActivityReference());
+            List<Employee> executors = employeeRepository.getEmployeesWithRoomForTasks();
+            if (executors.isEmpty()){
+                log.info("There are no employees available for this task. Please assign manually.");
+                Task createdTask = Task.builder()
+                        .taskInstanceReference(UUID.randomUUID().toString())
+                        .taskReference(ActivityToTaskMapping.getTaskReference(activity.getActivityReference()))
+                        .executorReference("UNASSIGNED")
+                        .processInstanceReference(executionLog.getProcessInstanceReference())
+                        .initiatorReference(executionLog.getInitiatorReference())
+                        .startTimeStamp(LocalDateTime.now().minusHours(2))
+                        .status(TaskStatus.ONGOING)
+                        .build();
+                taskService.persistNewTask(createdTask);
+            } else {
+                Employee assignableExecutor = executors
+                        .stream()
+                        .filter(employee -> employee.getName().equals(activity.getExecutorReference()))
+                        .findFirst()
+                        .orElse(executors.get(0));
+
+                Task createdTask = Task.builder()
+                        .taskInstanceReference(UUID.randomUUID().toString())
+                        .taskReference(ActivityToTaskMapping.getTaskReference(activity.getActivityReference()))
+                        .executorReference(assignableExecutor.getId())
+                        .processInstanceReference(executionLog.getProcessInstanceReference())
+                        .initiatorReference(executionLog.getInitiatorReference())
+                        .startTimeStamp(LocalDateTime.now().minusHours(2))
+                        .status(TaskStatus.ONGOING)
+                        .build();
+                taskService.persistNewTask(createdTask);
+                assignableExecutor.setNumberOfTasks(assignableExecutor.getNumberOfTasks() + 1);
+                employeeRepository.save(assignableExecutor);
+            }
+        } else {
+            log.info("No new task to generate based on activity provided {}.", activity.getActivityReference());
+        }
+    }
+}
+  \end{minted}
+  \caption[Executie Engine]{Executie Engine.}
+\end{listing}
