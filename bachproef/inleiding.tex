@@ -4,33 +4,36 @@
 
 \chapter{\IfLanguageName{dutch}{Inleiding}{Introduction}}%
 \label{ch:inleiding}
-
-De inleiding moet de lezer net genoeg informatie verschaffen om het onderwerp te begrijpen en in te zien waarom de onderzoeksvraag de moeite waard is om te onderzoeken. In de inleiding ga je literatuurverwijzingen beperken, zodat de tekst vlot leesbaar blijft. Je kan de inleiding verder onderverdelen in secties als dit de tekst verduidelijkt. Zaken die aan bod kunnen komen in de inleiding~\autocite{Pollefliet2011}:
-
-\begin{itemize}
-  \item context, achtergrond
-  \item afbakenen van het onderwerp
-  \item verantwoording van het onderwerp, methodologie
-  \item probleemstelling
-  \item onderzoeksdoelstelling
-  \item onderzoeksvraag
-  \item \ldots
-\end{itemize}
-
 \section{\IfLanguageName{dutch}{Probleemstelling}{Problem Statement}}%
 \label{sec:probleemstelling}
 
-Uit je probleemstelling moet duidelijk zijn dat je onderzoek een meerwaarde heeft voor een concrete doelgroep. De doelgroep moet goed gedefinieerd en afgelijnd zijn. Doelgroepen als ``bedrijven,'' ``KMO's'', systeembeheerders, enz.~zijn nog te vaag. Als je een lijstje kan maken van de personen/organisaties die een meerwaarde zullen vinden in deze bachelorproef (dit is eigenlijk je steekproefkader), dan is dat een indicatie dat de doelgroep goed gedefinieerd is. Dit kan een enkel bedrijf zijn of zelfs één persoon (je co-promotor/opdrachtgever).
+Bedrijven streven constant naar verbetering en optimalisatie. Dit is een verhaal van alle tijden, maar in het huidige competitieve bedrijfsleven is er weinig plaats voor inefficiënte en verspilling. Nu markten geglobaliseerd zijn en de drempel voor concurrentie lager dan ooit is, zijn het de bedrijven die hun processen tot in de puntjes beheersen en automatiseren die de beste resultaten behalen.\newline
 
+Bij Liantis, een middelgroot HR-bedrijf, is deze beheersing vol op aan de gang. Intern heerst al lang de visie dat onze grootste troef schuilt in krachtige dienstverlening ondersteund door sterke IT. Process governance is op alle niveaus van de onderneming ingevoerd. De flows zijn geanalyseerd en de bottlenecks zoveel mogelijk weggewerkt. Er is echter nog veel potentieel voor grotere winsten in efficiëntie. We weten wat “de juiste manier” is om een proces uit te voeren en medewerkers volgen dit zo goed mogelijk, maar tussen start en stop is er een zwart gat aan informatie die in deze tijden van grote data een gemiste kans is voor captatie, rapportage en verbetering via automatisatie.\newline 
+
+Deze nood bij Liantis was dan ook de aanleiding voor dit werk. Er is duidelijk plaats in de onderneming voor systemen die de processen monitoren en automatiseren. De winsten zouden dan ook legio zijn, maar intern missen we kennis en ervaring om hier iets mee te doen. Dergelijk project uit het niets starten en buy-in krijgen van het management is geen sinecure. Er was hier een duidelijke opportuniteit die nuttig zou zijn voor zowel mijn schoolse als professionele loopbaan. Het einddoel is dan ook om het resultaat van deze bachelor proef te gebruiken als ondersteuning voor een projectvoorstel met proof-of-concept voor een formele implementatie van een dergelijk systeem binnen de onderneming.
 \section{\IfLanguageName{dutch}{Onderzoeksvraag}{Research question}}%
 \label{sec:onderzoeksvraag}
 
-Wees zo concreet mogelijk bij het formuleren van je onderzoeksvraag. Een onderzoeksvraag is trouwens iets waar nog niemand op dit moment een antwoord heeft (voor zover je kan nagaan). Het opzoeken van bestaande informatie (bv. ``welke tools bestaan er voor deze toepassing?'') is dus geen onderzoeksvraag. Je kan de onderzoeksvraag verder specifiëren in deelvragen. Bv.~als je onderzoek gaat over performantiemetingen, dan 
+De centrale onderzoeksvraag is dan ook opgebouwd vanuit deze optiek. \textbf{”Wat zijn de vereisten waaraan een systeem moet voldoen en welke software architectuur is gepast om custom proces monitoring en orkestratie te implementeren binnen een bedrijf met veel custom development toepassingen?”}. Hierbij is het adjectief custom zeer cruciaal. Er zijn immers genoeg out-of-box oplossingen die kunnen inhaken op bestaande software om dit probleem op te lossen. Echter, net zoals veel Belgische bedrijven, is Liantis organisch gegroeid en is gehanteerde software van eigen makelij. Dit zorgt dan ook vaak voor moeilijkheden als bestaande software wordt aangekocht omdat custom integraties geschreven moeten worden. Een systeem dat kan inhaken op de specifieke noden qua processen en software van het bedrijf zal dus evenzeer van eigen makelij moeten zijn.\newline
 
-\section{\IfLanguageName{dutch}{Onderzoeksdoelstelling}{Research objective}}%
-\label{sec:onderzoeksdoelstelling}
+Om deze onderzoeksvraag correct te beantwoorden, wordt zowel het probleem als het oplossingsdomein opgesplitst in deelvragen als volgt.
 
-Wat is het beoogde resultaat van je bachelorproef? Wat zijn de criteria voor succes? Beschrijf die zo concreet mogelijk. Gaat het bv.\ om een proof-of-concept, een prototype, een verslag met aanbevelingen, een vergelijkende studie, enz.
+\section{\IfLanguageName{dutch}{Probleemdomein}{Probleemdomein}}%
+\label{sec:probleemdomein}
+\begin{itemize}
+  \item Wat zijn de functionele en niet-functionele vereisten waaraan dit systeem moet voldoen?
+  \item Wat zijn de mogelijkheden die bestaande proces monitoring en orkestratie software op de markt bieden?
+  \item Wat zijn de specifieke functionele en non-functionele vereisten qua proces monitoring en orkestratie voor processen binnen een HR-bedrijf?
+  \item Welke technische en architecturale uitdagingen zijn er bij de implementatie van dergelijke systemen in een bedrijfsomgeving met veel custom development?
+\end{itemize}
+
+\section{\IfLanguageName{dutch}{Oplossingsdomein}{Probleemdomein}}%
+\label{sec:oplossingsdomein}
+\begin{itemize}
+  \item Hoe implementeren we dergelijke systemen in een bedrijfsomgeving met veel custom development?
+  \item Aan welke criteria moet dergelijk system voldoen om succesvolle proces monitoring en orkestratie te bereiken binnen het bedrijf?
+\end{itemize}
 
 \section{\IfLanguageName{dutch}{Opzet van deze bachelorproef}{Structure of this bachelor thesis}}%
 \label{sec:opzet-bachelorproef}
@@ -39,12 +42,14 @@ Wat is het beoogde resultaat van je bachelorproef? Wat zijn de criteria voor suc
 % geven van de opbouw van de rest van de tekst. Deze sectie bevat al een aanzet
 % die je kan aanvullen/aanpassen in functie van je eigen tekst.
 
-De rest van deze bachelorproef is als volgt opgebouwd:
+De rest van deze bachelorproef is als volgt opgebouwd: \newline
 
-In Hoofdstuk~\ref{ch:stand-van-zaken} wordt een overzicht gegeven van de stand van zaken binnen het onderzoeksdomein, op basis van een literatuurstudie.
+In Hoofdstuk~\ref{ch:onderzoeksmethode} wordt de methodologie toegelicht en worden de gebruikte onderzoekstechnieken besproken om een antwoord te kunnen formuleren op de onderzoeksvragen.\newline
 
-In Hoofdstuk~\ref{ch:methodologie} wordt de methodologie toegelicht en worden de gebruikte onderzoekstechnieken besproken om een antwoord te kunnen formuleren op de onderzoeksvragen.
+In Hoofdstuk~\ref{ch:literatuurstudie} wordt de huidige stand van zaken van het domein proces governance, proces monitoring en proces orkestratie binnen het werkveld om zo een theoretisch vertrekpunt te hebben voor dit werk.\newline
 
-% TODO: Vul hier aan voor je eigen hoofstukken, één of twee zinnen per hoofdstuk
+In Hoofdstuk~\ref{ch:analyse} wordt er enerzijds een requirementsanalyse uitgevoerd om de functionele noden van het casusbedrijf correct te capteren met mogelijke realisaties. Anderzijds wordt een technische en niet-functionele analyse uitgevoerd opdat het eindproduct past binnen het architecturaal kader van het bedrijf.\newline
 
-In Hoofdstuk~\ref{ch:conclusie}, tenslotte, wordt de conclusie gegeven en een antwoord geformuleerd op de onderzoeksvragen. Daarbij wordt ook een aanzet gegeven voor toekomstig onderzoek binnen dit domein.
+In Hoofdstuk~\ref{ch:proof-of-concept} wordt op basis van de voorgaande theoretische achtergrond en de analyse zowel een theoretisch compleet als proof-of-concept systeem ontworpen. Verder wordt de proof-of-concept gebouwd en gevalideerd op basis van een simulatie van een bestaand proces van het casusbedrijf om te zien of het voldoet aan de requirementsanalyse.\newline
+
+In Hoofdstuk~\ref{ch:conclusie}, tenslotte, worden de resultaten van de proof-of-concept besproken en wordt op basis hiervan gereflecteerd over de onderzoeksvraag voor een finale conclusie.
