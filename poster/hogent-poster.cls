@@ -1,11 +1,10 @@
-%% -----------------------------------------------------------------------------
 %% hogent-poster.cls --- Conference poster for use at HOGENT
 %% 
 %% Based on `a0poster.cls', Copyright (C) 07.05.97 Gerlinde Kettl and
 %%    Matthias Weiser
 %% This template has been downloaded from: http://www.LaTeXTemplates.com
 %%
-%% Adapter by Jens Buysse and Bert Van Vreckem for Hogeschool Gent
+%% Adapted by Jens Buysse and Bert Van Vreckem for Hogeschool Gent
 %%
 %% License:
 %% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
@@ -72,7 +71,6 @@
   \ykoord=1684 % big points (1 bp=1/72 inch)
   \xscale=4
   \yscale=4
-
 }
 \DeclareOption{a3}{
   \adreitrue\anullbfalse
@@ -120,6 +118,7 @@
 \let\@academicyear\@empty    % e.g. 2022--2023
 \let\@email\@empty           % e.g. ernst.aarden@student.hogent.be
 \let\@supervisor\@empty      % specifically for bachelor thesis proposal
+\let\@cosupervisor\@empty
 \let\@institution\@empty
 \let\@projectrepo\@empty     % e.g. https://github.com/user/some-repo
 \let\@specialisation\@empty  % e.g. System and Network Admin, Data engineering
@@ -134,7 +133,6 @@
 \newcommand{\cosupervisor}[1]{\def\@cosupervisor{#1}}
 \newcommand{\projectrepo}[1]{\def\@projectrepo{#1}}
 \newcommand{\institution}[1]{\def\@institution{#1}}
-
 \newcommand{\specialisation}[1]{\def\@specialisation{#1}}
 \newcommand{\keywords}[1]{\def\@keywords{#1}}
 
@@ -151,7 +149,7 @@
 %% Kleuren HoGent huisstijl
 %%============================================================================
 
-\usepackage[dvipsnames]{xcolor}
+\RequirePackage[dvipsnames]{xcolor}
 
 %% Accent colors:
 \definecolor{hogent-darkgreen}{RGB}{22,176,165}
@@ -228,8 +226,8 @@
 \setlength{\headheight}{0 cm}
 \setlength{\headsep}{0 cm}
 \ifadrei
-\setlength{\topmargin}{2.5 cm}
-\setlength{\oddsidemargin}{2.5 cm}
+  \setlength{\topmargin}{2.5 cm}
+  \setlength{\oddsidemargin}{2.5 cm}
 \else\ifazwei
   \setlength{\topmargin}{3 cm}
   \setlength{\oddsidemargin}{3 cm}
@@ -247,7 +245,7 @@
 %% Layout
 %%============================================================================
 
-\usepackage{multicol} % This is so we can have multiple columns of text side-by-side
+\RequirePackage{multicol} % This is so we can have multiple columns of text side-by-side
 \columnsep=100pt % This is the amount of white space between the columns in the poster
 \columnseprule=3pt % This is the thickness of the black line between the columns in the poster
 
@@ -262,38 +260,45 @@
 
   \begingroup
   \medskip
-  \raggedright\titlefont\color{title}\VeryHuge\@title
+  \raggedright\titlefont\color{title}\Huge\@title
 
   \if\@subtitle\@empty\else
     \raggedright\titlefont\Huge\textit{\@subtitle}
   \fi
   \endgroup
 
-  \begingroup
-  \bigskip
-  \raggedright\huge\textbf{\@author}
+  \vspace{24pt} % Adjusted for [c] alignment
 
-  \if\@email\@empty\else
-    \medskip
-    \raggedright\@email
-  \fi
+  \begingroup
+  % Use minipage to place author/supervisor and logo side by side
+  \begin{minipage}[c]{0.5\textwidth}
+    \raggedright\Large\textbf{\@author}
+
+    \if\@email\@empty\else
+      \medskip
+      \raggedright\@email
+    \fi
+
+    \if\@supervisor\@empty\else
+      \medskip
+      \raggedright\large Promotor: \@supervisor
+    \fi
+
+    \if\@cosupervisor\@empty\else
+      \medskip
+      \raggedright\large Co-promotor: \@cosupervisor
+    \fi
+  \end{minipage}%
+  \hfill % Space between text and logo
+  \begin{minipage}[c]{0.4\textwidth}
+    \raggedleft % Right-align logo
+    \includegraphics[height=5cm]{hogent_logo} % Removed \raisebox, using [c] alignment
+  \end{minipage}
   \endgroup
 
   \begingroup
-  \if\@supervisor\@empty\else
-    \medskip
-    \raggedright\Large Promotor: \@supervisor
-  \fi
-
-  \if\@cosupervisor\@empty\else
-    \medskip
-    \raggedright\Large Co-promotor: \@cosupervisor
-  \fi
-  \endgroup
-
-  \begingroup
-  \bigskip
-  \raggedright\Large\@institution
+  \vspace{24pt} % Adjusted for [c] alignment
+  \raggedright\normalsize\@institution
   \endgroup
 
   \bigskip
@@ -313,24 +318,16 @@
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 
-%% Use the length of the 'HO' part of the logo to set the padding of the logo
+%% Use the length of the 'HO' part of the logo to set the padding (kept for potential future use)
 \newsavebox{\logopart}
-\savebox{\logopart}{\includegraphics[height=7cm]{logopart}}
+\savebox{\logopart}{\includegraphics[height=5cm]{logopart}} % Matches logo height
 
-% First page footer
+% First page footer (empty)
 \fancypagestyle{plain}{%
-  %\newgeometry{bottom=\wd\logopart}
   \fancyhf{}%
   \fancyfoot[L]{}%
-  \fancyfoot[C]{}
-  \fancyfoot[R]{%
-    \begin{tikzpicture}[remember picture, overlay]
-      \node [anchor=south east, shift={(-\the\wd\logopart, \the\wd\logopart)}, inner sep=0, outer sep=0] (logo) at (current page.south east)%
-      {%
-        \includegraphics[height=\the\ht\logopart]{hogent_logo}%
-      };%
-    \end{tikzpicture}
-  }%
+  \fancyfoot[C]{}%
+  \fancyfoot[R]{}% Removed logo from footer
 }
 
 %%============================================================================
@@ -367,7 +364,7 @@
 
 \setlength\smallskipamount{6pt plus 2pt minus 2pt}
 \setlength\medskipamount{12pt plus 4pt minus 4pt}
-\setlength\bigskipamount{24pt plus 8pt minus 8pt}
+\setlength\bigskipamount{24pt plus 8pt minus 4pt}
 
 \setlength\abovecaptionskip{25pt}
 \setlength\belowcaptionskip{0pt}
@@ -399,8 +396,8 @@
       \fi
     \fi
   \fi
-  \pagestyle{empty}}
-
+  \pagestyle{empty}
+}
 
 %% -----------------------------------------------------------------------------
 %% Heading format
